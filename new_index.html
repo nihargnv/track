@@ -7,43 +7,42 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* VS Code-inspired color scheme with light background */
+        /* Light and subtle background, vibrant text and buttons */
         body {
-            background: linear-gradient(135deg, #343639 0%, #424853 100%);
-            color: #d4d4d4;
+            background: linear-gradient(135deg, #f9fafb 0%, #e5e7eb 100%);
+            color: #111827;
             @apply overflow-x-hidden;
         }
         .calendar-day {
             @apply h-10 w-10 flex items-center justify-center rounded-full transition-all duration-200;
-        }        
-        .calendar-day-bg-1 { background-color: #14b8a6; }
-        .calendar-day-bg-2 { background-color: #22d3ee; }
-        .calendar-day-bg-3 { background-color: #f472b6; }
+        }
+        .calendar-day-bg-1 { background-color: #0d9488; }
+        .calendar-day-bg-2 { background-color: #14b8a6; }
+        .calendar-day-bg-3 { background-color: #22d3ee; }
         .fire-large { font-size: 1.5rem; }
         .fire-medium { font-size: 1.25rem; }
         .fire-small { font-size: 1rem; }
         .goal-progress { background: linear-gradient(to right, #14b8a6, #f472b6); }
-        .todo-completed { text-decoration: line-through; color: #858585; }
+        .todo-completed { text-decoration: line-through; color: #4b5563; }
         .diary-font { font-family: 'Dancing Script', cursive; }
-
         input[type="checkbox"] {
             appearance: none;
             width: 1.5rem;
             height: 1.5rem;
-            border: 2px solid #3b8bba;
+            border: 2px solid #14b8a6;
             border-radius: 0.375rem;
-            background-color: #2d2d2d;
+            background-color: #f3f4f6;
             cursor: pointer;
             position: relative;
             transition: all 0.2s ease-in-out;
-            /* min-width: 44px; */
+            min-width: 44px;
         }
         input[type="checkbox"]:checked {
-            background-color: #3b8bba;
+            background-color: #14b8a6;
         }
         input[type="checkbox"]:checked::after {
             content: '✔';
-            color: #d4d4d4;
+            color: #f3f4f6;
             font-size: 1rem;
             position: absolute;
             top: 50%;
@@ -52,7 +51,7 @@
         }
         input[type="checkbox"]:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 139, 186, 0.5);
+            box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.5);
         }
         button {
             @apply transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2;
@@ -65,13 +64,10 @@
             animation: fadeIn 0.5s ease-in-out;
         }
         .nav-active {
-            @apply bg-[#3b8bba] text-[#d4d4d4];
+            @apply bg-teal-600 text-white;
         }
         .panel-bg {
-            background-color: #1e1e1e;
-        }
-        .secondary-bg {
-            background-color: #252526;
+            background-color: #ffffff;
         }
         /* Responsive font sizes */
         h2 {
@@ -89,13 +85,13 @@
     <div class="container mx-auto p-4 sm:p-6 max-w-full">
         <!-- Login Page -->
         <div id="login-view" class="flex flex-col items-center justify-center min-h-[80vh]">
-            <div class="panel-bg p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20 w-full max-w-md login-container">
-                <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Login</h2>
+            <div class="panel-bg p-6 rounded-xl shadow-lg shadow-teal-500/20 w-full max-w-md login-container">
+                <h2 class="font-semibold mb-4 text-teal-600">Login</h2>
                 <div class="space-y-4">
-                    <input id="email" type="email" placeholder="Email" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full text-sm sm:text-base placeholder-[#858585]">
-                    <input id="password" type="password" placeholder="Password" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full text-sm sm:text-base placeholder-[#858585]">
-                    <button id="login-email" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] w-full">Sign In</button>
-                    <button id="login-google" class="bg-[#4285f4] text-[#d4d4d4] rounded-lg hover:bg-[#357ae8] w-full flex items-center justify-center">
+                    <input id="email" type="email" placeholder="Email" class="bg-gray-100 text-gray-900 p-2 rounded-lg w-full text-sm-responsive">
+                    <input id="password" type="password" placeholder="Password" class="bg-gray-100 text-gray-900 p-2 rounded-lg w-full text-sm-responsive">
+                    <button id="login-email" class="bg-teal-600 text-white rounded-lg hover:bg-teal-700 w-full">Sign In</button>
+                    <button id="login-google" class="bg-blue-600 text-white rounded-lg hover:bg-blue-700 w-full flex items-center justify-center">
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12.24 10.4V14h2.4c-.1 1.2-.9 2.3-2.4 2.9v2.4h4c2.3-2.2 3.6-5.5 3.6-9 0-.6 0-1.2-.1-1.8H12.24z"/>
                             <path fill="currentColor" d="M12 20c-2.7 0-5-1.8-5.8-4.4H2.8v2.4C4.7 20.9 8.1 23 12 23c2.7 0 5.2-1 7.1-2.7V18h-4v2.4c-1.1.4-2.3.6-3.1.6z"/>
@@ -104,7 +100,7 @@
                         </svg>
                         Sign in with Google
                     </button>
-                    <p id="auth-error" class="text-[#f44747] text-center text-sm sm:text-base"></p>
+                    <p id="auth-error" class="text-red-600 text-center text-sm-responsive"></p>
                 </div>
             </div>
         </div>
@@ -112,30 +108,30 @@
         <div id="main-app" class="hidden">
             <!-- Navigation Bar -->
             <nav class="flex justify-center mb-6">
-                <div class="flex secondary-bg rounded-lg p-1 shadow-sm">
-                    <button id="nav-track" class="px-4 py-2 rounded-lg bg-[#3b8bba] text-[#d4d4d4] text-sm sm:text-base transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Track</button>
-                    <button id="nav-diary" class="px-4 py-2 rounded-lg text-[#858585] hover:bg-[#3b8bba] hover:text-[#d4d4d4] text-sm sm:text-base transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Diary</button>
+                <div class="flex panel-bg rounded-lg p-1 shadow-sm">
+                    <button id="nav-track" class="px-4 py-2 rounded-lg nav-active text-sm-responsive">Track</button>
+                    <button id="nav-diary" class="px-4 py-2 rounded-lg text-gray-600 hover:bg-teal-600 hover:text-white text-sm-responsive">Diary</button>
                 </div>
             </nav>
             <!-- Greeting -->
-            <p id="greeting" class="text-base sm:text-lg text-center mb-6 text-[#858585]"></p>
+            <p id="greeting" class="text-lg-responsive text-center mb-6 text-gray-600"></p>
             <!-- Track View -->
             <div id="track-view" class="flex flex-col gap-4">
                 <div class="flex flex-col lg:flex-row gap-4">
                     <!-- To-Do List Section -->
-                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                        <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">To-Do List</h2>
+                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-teal-500/20">
+                        <h2 class="font-semibold mb-4 text-teal-600">To-Do List</h2>
                         <div class="flex flex-col sm:flex-row gap-2 mb-4">
-                            <input id="new-todo" type="text" placeholder="Add a to-do" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg flex-1 text-sm sm:text-base placeholder-[#858585]">
-                            <button id="add-todo" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Add</button>
+                            <input id="new-todo" type="text" placeholder="Add a to-do" class="bg-gray-100 text-gray-900 p-2 rounded-lg flex-1 text-sm-responsive">
+                            <button id="add-todo" class="bg-teal-600 text-white rounded-lg hover:bg-teal-700">Add</button>
                         </div>
                         <div id="todo-list" class="space-y-2"></div>
                     </div>
                     <!-- Calendar and Goals Progress Section -->
-                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
+                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-teal-500/20">
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="font-semibold text-[#3b8bba] text-xl sm:text-2xl">Streak Calendar & Goals</h2>
-                            <button id="go-to-settings" class="bg-[#3c3c3c] text-[#d4d4d4] rounded-lg hover:bg-[#4e4e4e]">
+                            <h2 class="font-semibold text-teal-600">Streak Calendar & Goals</h2>
+                            <button id="go-to-settings" class="bg-gray-300 text-gray-600 rounded-lg hover:bg-gray-400">
                                 <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37A1.724 1.724 0 0010.325 4.317z"></path>
                                 </svg>
@@ -146,66 +142,66 @@
                     </div>
                 </div>
                 <!-- Checklist Section -->
-                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                    <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Today's Checklist</h2>
+                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-teal-500/20">
+                    <h2 class="font-semibold mb-4 text-teal-600">Today's Checklist</h2>
                     <div id="checklist" class="space-y-4"></div>
-                    <button id="submit" class="mt-4 bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] w-full sm:w-auto transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Submit</button>
-                    <p id="score" class="mt-4 text-base sm:text-lg text-[#858585]"></p>
+                    <button id="submit" class="mt-4 bg-teal-600 text-white rounded-lg hover:bg-teal-700 w-full sm:w-auto">Submit</button>
+                    <p id="score" class="mt-4 text-lg-responsive text-gray-600"></p>
                 </div>
             </div>
             <!-- Diary View -->
             <div id="diary-view" class="hidden flex flex-col gap-4">
-                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                    <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Diary</h2>
-                    <button id="new-diary" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] mb-4 flex items-center w-full sm:w-auto transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">
+                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-teal-500/20">
+                    <h2 class="font-semibold mb-4 text-teal-600">Diary</h2>
+                    <button id="new-diary" class="bg-teal-600 text-white rounded-lg hover:bg-teal-700 mb-4 flex items-center w-full sm:w-auto">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
                         New Diary Entry
                     </button>
                     <div id="diary-form" class="hidden mb-4">
-                        <textarea id="diary-content" class="w-full bg-[#2d2d2d] text-[#d4d4d4] p-3 rounded-lg diary-font text-lg sm:text-xl placeholder-[#858585]" rows="5" placeholder="Write your thoughts for today..."></textarea>
+                        <textarea id="diary-content" class="w-full bg-gray-100 text-gray-900 p-3 rounded-lg diary-font text-lg sm:text-xl" rows="5" placeholder="Write your thoughts for today..."></textarea>
                         <div class="flex gap-2 mt-2">
-                            <button id="save-diary" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Save</button>
-                            <button id="cancel-diary" class="bg-[#3c3c3c] text-[#d4d4d4] rounded-lg hover:bg-[#4e4e4e] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Cancel</button>
+                            <button id="save-diary" class="bg-teal-600 text-white rounded-lg hover:bg-teal-700">Save</button>
+                            <button id="cancel-diary" class="bg-gray-300 text-gray-600 rounded-lg hover:bg-gray-400">Cancel</button>
                         </div>
                     </div>
                     <div id="diary-list" class="space-y-2"></div>
                 </div>
             </div>
             <!-- Settings View -->
-            <div id="settings-view" class="hidden flex-col gap-4 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Settings</h2>
+            <div id="settings-view" class="hidden flex-col gap-4 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-teal-500/20">
+                <h2 class="font-semibold mb-4 text-teal-600">Settings</h2>
                 <!-- User Settings -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-medium mb-2 text-[#858585]">User Settings</h3>
-                    <input id="user-name" type="text" placeholder="Enter your name" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full sm:w-1/2 text-sm sm:text-base placeholder-[#858585]">
-                    <button id="save-name" class="mt-2 bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Save Name</button>
-                    <button id="logout" class="mt-2 bg-[#f44747] text-[#d4d4d4] rounded-lg hover:bg-[#cc3c3c] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Logout</button>
+                    <h3 class="text-lg font-medium mb-2 text-gray-600">User Settings</h3>
+                    <input id="user-name" type="text" placeholder="Enter your name" class="bg-gray-100 text-gray-900 p-2 rounded-lg w-full sm:w-1/2 text-sm-responsive">
+                    <button id="save-name" class="mt-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">Save Name</button>
+                    <button id="logout" class="mt-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</button>
                 </div>
                 <!-- Task Management -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-medium mb-2 text-[#858585]">Manage Tasks</h3>
+                    <h3 class="text-lg font-medium mb-2 text-gray-600">Manage Tasks</h3>
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <input id="new-task" type="text" placeholder="New task name" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg flex-1 text-sm sm:text-base placeholder-[#858585]">
-                        <input id="task-points" type="number" min="1" placeholder="Points" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full sm:w-24 text-sm sm:text-base placeholder-[#858585]">
-                        <button id="add-task" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Add Task</button>
+                        <input id="new-task" type="text" placeholder="New task name" class="bg-gray-100 text-gray-900 p-2 rounded-lg flex-1 text-sm-responsive">
+                        <input id="task-points" type="number" min="1" placeholder="Points" class="bg-gray-100 text-gray-900 p-2 rounded-lg w-full sm:w-24 text-sm-responsive">
+                        <button id="add-task" class="bg-teal-600 text-white rounded-lg hover:bg-teal-700">Add Task</button>
                     </div>
                     <div id="task-list" class="mt-4 space-y-2"></div>
                 </div>
                 <!-- Goal Settings -->
                 <div>
-                    <h3 class="text-lg font-medium mb-2 text-[#858585]">Manage Goals</h3>
+                    <h3 class="text-lg font-medium mb-2 text-gray-600">Manage Goals</h3>
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <select id="goal-task" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg text-sm sm:text-base">
+                        <select id="goal-task" class="bg-gray-100 text-gray-900 p-2 rounded-lg text-sm-responsive">
                             <!-- Populated dynamically -->
                         </select>
-                        <input id="goal-duration" type="number" min="1" placeholder="Months" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full sm:w-24 text-sm sm:text-base placeholder-[#858585]">
-                        <button id="set-goal" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Set Goal</button>
+                        <input id="goal-duration" type="number" min="1" placeholder="Months" class="bg-gray-100 text-gray-900 p-2 rounded-lg w-full sm:w-24 text-sm-responsive">
+                        <button id="set-goal" class="bg-teal-600 text-white rounded-lg hover:bg-teal-700">Set Goal</button>
                     </div>
                     <div id="settings-goal-list" class="mt-4 space-y-2"></div>
                 </div>
-                <button id="back-to-main" class="mt-4 bg-[#3c3c3c] text-[#d4d4d4] rounded-lg hover:bg-[#4e4e4e] w-full sm:w-auto transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Back to Main</button>
+                <button id="back-to-main" class="mt-4 bg-gray-300 text-gray-600 rounded-lg hover:bg-gray-400 w-full sm:w-auto">Back to Main</button>
             </div>
         </div>
     </div>
@@ -303,16 +299,16 @@
             trackView.classList.remove('hidden');
             diaryView.classList.add('hidden');
             settingsView.classList.add('hidden');
-            navTrack.classList.add("bg-[#3b8bba] text-[#d4d4d4]");
-            navDiary.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.add('nav-active');
+            navDiary.classList.remove('nav-active');
         }
 
         function showDiaryView() {
             trackView.classList.add('hidden');
             diaryView.classList.remove('hidden');
             settingsView.classList.add('hidden');
-            navTrack.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
-            navDiary.classList.add('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.remove('nav-active');
+            navDiary.classList.add('nav-active');
             renderDiaryList();
         }
 
@@ -322,8 +318,8 @@
             trackView.classList.add('hidden');
             diaryView.classList.add('hidden');
             settingsView.classList.remove('hidden');
-            navTrack.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
-            navDiary.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.remove('nav-active');
+            navDiary.classList.remove('nav-active');
             renderTaskList();
             renderGoalSettings();
         });
@@ -387,7 +383,7 @@
             Object.keys(tasks).forEach(task => {
                 const div = document.createElement('div');
                 div.innerHTML = `
-                    <label class="flex items-center text-sm sm:text-base">
+                    <label class="flex items-center text-sm-responsive">
                         <input type="checkbox" id="${task}" class="mr-3">
                         <span>${task.charAt(0).toUpperCase() + task.slice(1)} (${tasks[task]} points)</span>
                     </label>
@@ -451,10 +447,10 @@
             taskList.innerHTML = '';
             Object.keys(tasks).forEach(task => {
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg flex justify-between text-sm sm:text-base';
+                div.className = 'bg-gray-100 p-2 rounded-lg flex justify-between text-sm-responsive';
                 div.innerHTML = `
                     <span>${task.charAt(0).toUpperCase() + task.slice(1)} (${tasks[task]} points)</span>
-                    <button onclick="deleteTask('${task}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <button onclick="deleteTask('${task}')" class="text-red-600 hover:text-red-700">Delete</button>
                 `;
                 taskList.appendChild(div);
             });
@@ -488,7 +484,7 @@
                 const option = document.createElement('option');
                 option.value = task;
                 option.textContent = task.charAt(0).toUpperCase() + task.slice(1);
-                option.className = 'text-sm sm:text-base';
+                option.className = 'text-sm-responsive';
                 goalTaskSelect.appendChild(option);
             });
         }
@@ -520,8 +516,8 @@
             renderCalendar();
             settingsView.classList.add('hidden');
             trackView.classList.remove('hidden');
-            navTrack.classList.add('bg-[#3b8bba] text-[#d4d4d4]');
-            navDiary.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.add('nav-active');
+            navDiary.classList.remove('nav-active');
         });
 
         // Render goals in main view
@@ -536,13 +532,13 @@
                 const totalDays = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
                 const progress = Math.min((elapsedDays / totalDays) * 100, 100);
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg';
+                div.className = 'bg-gray-100 p-2 rounded-lg';
                 div.innerHTML = `
-                    <div class="flex justify-between text-sm sm:text-base">
+                    <div class="flex justify-between text-sm-responsive">
                         <span>${goal.task.toUpperCase()} Goal (${goal.duration} months)</span>
                     </div>
-                    <div class="mt-1 text-sm sm:text-base text-[#858585]">Elapsed: ${elapsedDays}/${totalDays} days</div>
-                    <div class="w-full bg-[#3c3c3c] rounded-full h-2 mt-1">
+                    <div class="mt-1 text-sm-responsive text-gray-600">Elapsed: ${elapsedDays}/${totalDays} days</div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
                         <div class="goal-progress h-2 rounded-full" style="width: ${progress}%"></div>
                     </div>
                 `;
@@ -561,10 +557,10 @@
                 const elapsedDays = Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 1;
                 const totalDays = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg flex justify-between text-sm sm:text-base';
+                div.className = 'bg-gray-100 p-2 rounded-lg flex justify-between text-sm-responsive';
                 div.innerHTML = `
                     <span>${goal.task.toUpperCase()} Goal (${goal.duration} months, ${elapsedDays}/${totalDays} days)</span>
-                    <button onclick="deleteGoal('${goal.id}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <button onclick="deleteGoal('${goal.id}')" class="text-red-600 hover:text-red-700">Delete</button>
                 `;
                 settingsGoalList.appendChild(div);
             });
@@ -601,13 +597,13 @@
             todoList.innerHTML = '';
             todos.forEach(todo => {
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg flex items-center justify-between text-sm sm:text-base';
+                div.className = 'bg-gray-100 p-2 rounded-lg flex items-center justify-between text-sm-responsive';
                 div.innerHTML = `
                     <label class="flex items-center flex-1">
                         <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo('${todo.id}')" class="mr-3">
                         <span class="${todo.completed ? 'todo-completed' : ''}">${todo.text}</span>
                     </label>
-                    <button onclick="deleteMyTodo('${todo.id}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <button onclick="deleteTodo('${todo.id}')" class="text-red-600 hover:text-red-700">Delete</button>
                 `;
                 todoList.appendChild(div);
             });
@@ -625,8 +621,7 @@
         }
 
         // Delete to-do
-        async function deleteMyTodo(id) {
-            console.log('Deleting todo with id:', id);
+        async function deleteTodo(id) {
             if (!auth.currentUser) return;
             todos = todos.filter(todo => todo.id !== id);
             await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id));
@@ -674,14 +669,14 @@
             diaryList.innerHTML = '';
             diaryEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(entry => {
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-3 rounded-lg';
+                div.className = 'bg-gray-100 p-3 rounded-lg';
                 const preview = entry.content.split(' ').slice(0, 10).join(' ') + (entry.content.split(' ').length > 10 ? '...' : '');
                 div.innerHTML = `
-                    <div class="flex justify-between items-center cursor-pointer text-sm sm:text-base" onclick="showDiaryEntry('${entry.id}')">
-                        <span class="diary-font text-lg sm:text-xl text-[#d4d4d4]">${entry.date}: ${preview}</span>
-                        <button onclick="event.stopPropagation(); deleteDiaryEntry('${entry.id}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <div class="flex justify-between items-center cursor-pointer text-sm-responsive" onclick="showDiaryEntry('${entry.id}')">
+                        <span class="diary-font text-lg sm:text-xl text-gray-600">${entry.date}: ${preview}</span>
+                        <button onclick="event.stopPropagation(); deleteDiaryEntry('${entry.id}')" class="text-red-600 hover:text-red-700">Delete</button>
                     </div>
-                    <div id="diary-content-${entry.id}" class="hidden diary-font text-lg sm:text-xl mt-2 p-2 bg-[#252526] rounded-lg text-[#d4d4d4]">${entry.content}</div>
+                    <div id="diary-content-${entry.id}" class="hidden diary-font text-lg sm:text-xl mt-2 p-2 bg-gray-200 rounded-lg text-gray-600">${entry.content}</div>
                 `;
                 diaryList.appendChild(div);
             });
@@ -716,7 +711,7 @@
             days.forEach(day => {
                 const div = document.createElement('div');
                 div.textContent = day;
-                div.className = ' w-10 font-bold text-[#3b8bba] text-sm sm:text-base flex items-center justify-center';
+                div.className = 'font-bold text-teal-600 text-sm-responsive';
                 calendar.appendChild(div);
             });
 
@@ -731,7 +726,7 @@
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const div = document.createElement('div');
                 const bgClass = day % 3 === 0 ? 'calendar-day-bg-1' : day % 3 === 1 ? 'calendar-day-bg-2' : 'calendar-day-bg-3';
-                div.className = `h-10 w-10 flex items-center justify-center rounded-full transition-all duration-200; ${bgClass}`;
+                div.className = `calendar-day ${bgClass}`;
                 
                 let content = day;
                 let tooltip = '';
@@ -742,7 +737,7 @@
                     tooltip += `Score: ${score}`;
                 } else if (dateStr < today && (!trackingData[dateStr] || trackingData[dateStr].score === 0)) {
                     content = '❌';
-                    div.className += ' text-[#f44747]';
+                    div.className += ' text-red-600';
                 }
 
                 const activeGoals = goals.filter(goal => {
