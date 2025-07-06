@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light-theme">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +7,96 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* VS Code-inspired color scheme with light background */
+        /* Theme variables */
+        :root {
+            /* Light theme */
+            --bg: #f5f5f5;
+            --panel-bg: #ffffff;
+            --secondary-bg: #f3f4f6;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --error: #ef4444;
+            --error-hover: #dc2626;
+            --button-primary: #3b82f6;
+            --button-primary-hover: #2563eb;
+            --button-secondary: #6b7280;
+            --button-secondary-hover: #4b5563;
+            --button-google: #4285f4;
+            --button-google-hover: #3267d6;
+            --checkbox-bg: #f3f4f6;
+            --checkbox-border: #3b82f6;
+            --checkbox-checked: #3b82f6;
+            --progress-bg: #e5e7eb;
+            --diary-text: #1f2937;
+            --icon-color: #f59e0b; /* Sun icon for light theme */
+        }
+        .dark-theme {
+            /* Dark theme */
+            --bg: #111827;
+            --panel-bg: #1f2937;
+            --secondary-bg: #374151;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d5db;
+            --error: #f87171;
+            --error-hover: #ef4444;
+            --button-primary: #3b82f6;
+            --button-primary-hover: #2563eb;
+            --button-secondary: #6b7280;
+            --button-secondary-hover: #4b5563;
+            --button-google: #4285f4;
+            --button-google-hover: #3267d6;
+            --checkbox-bg: #374151;
+            --checkbox-border: #3b82f6;
+            --checkbox-checked: #3b82f6;
+            --progress-bg: #4b5563;
+            --diary-text: #ffffff;
+            --icon-color: #d1d5db; /* Moon icon for dark theme */
+        }
+        /* Apply theme variables */
         body {
-            background: linear-gradient(135deg, #343639 0%, #424853 100%);
-            color: #d4d4d4;
-            @apply overflow-x-hidden;
+            background: var(--bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
         }
         .calendar-day {
-            @apply h-10 w-10 flex items-center justify-center rounded-full transition-all duration-200;
-        }        
-        .calendar-day-bg-1 { background-color: #14b8a6; }
-        .calendar-day-bg-2 { background-color: #22d3ee; }
-        .calendar-day-bg-3 { background-color: #f472b6; }
+            height: 2.5rem;
+            width: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            transition: all 0.2s ease-in-out;
+        }
+        .calendar-day-bg-1 { background-color: #2dd4bf; }
+        .calendar-day-bg-2 { background-color: #3b82f6; }
+        .calendar-day-bg-3 { background-color: #ec4899; }
+        .dark-theme .calendar-day-bg-2 { background-color: #60a5fa; }
+        .dark-theme .calendar-day-bg-3 { background-color: #f472b6; }
         .fire-large { font-size: 1.5rem; }
         .fire-medium { font-size: 1.25rem; }
         .fire-small { font-size: 1rem; }
-        .goal-progress { background: linear-gradient(to right, #14b8a6, #f472b6); }
-        .todo-completed { text-decoration: line-through; color: #858585; }
-        .diary-font { font-family: 'Dancing Script', cursive; }
-
+        .goal-progress { background: linear-gradient(to right, #2dd4bf, #ec4899); }
+        .dark-theme .goal-progress { background: linear-gradient(to right, #2dd4bf, #f472b6); }
+        .todo-completed { text-decoration: line-through; color: var(--text-secondary); }
+        .diary-font { font-family: 'Dancing+Script', cursive; }
         input[type="checkbox"] {
             appearance: none;
             width: 1.5rem;
             height: 1.5rem;
-            border: 2px solid #3b8bba;
+            border: 2px solid var(--checkbox-border);
             border-radius: 0.375rem;
-            background-color: #2d2d2d;
+            background-color: var(--checkbox-bg);
             cursor: pointer;
             position: relative;
             transition: all 0.2s ease-in-out;
-            /* min-width: 44px; */
+            min-width: 48px;
         }
         input[type="checkbox"]:checked {
-            background-color: #3b8bba;
+            background-color: var(--checkbox-checked);
         }
         input[type="checkbox"]:checked::after {
             content: '✔';
-            color: #d4d4d4;
+            color: #ffffff;
             font-size: 1rem;
             position: absolute;
             top: 50%;
@@ -52,50 +105,56 @@
         }
         input[type="checkbox"]:focus {
             outline: none;
-            box-shadow: 0 0 0 3px rgba(59, 139, 186, 0.5);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
         }
         button {
-            @apply transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2;
+            transition: all 0.2s ease-in-out;
+            transform: scale(1);
+        }
+        button:hover {
+            transform: scale(1.05);
+        }
+        button {
+            min-width: 48px;
+            padding: 0.75rem 1.5rem;
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .greeting, .login-container {
-            animation: fadeIn 0.5s ease-in-out;
-        }
         .nav-active {
-            @apply bg-[#3b8bba] text-[#d4d4d4];
+            background-color: var(--button-primary);
+            color: #ffffff;
         }
         .panel-bg {
-            background-color: #1e1e1e;
+            background-color: var(--panel-bg);
         }
         .secondary-bg {
-            background-color: #252526;
+            background-color: var(--secondary-bg);
         }
-        /* Responsive font sizes */
-        h2 {
-            @apply text-xl sm:text-2xl;
-        }
-        .text-sm-responsive {
-            @apply text-sm sm:text-base;
-        }
-        .text-lg-responsive {
-            @apply text-base sm:text-lg;
+        .theme-toggle {
+            width: 1.5rem;
+            height: 1.5rem;
+            stroke: var(--icon-color);
+            stroke-width: 2.5;
+            fill: none;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
-    <div class="container mx-auto p-4 sm:p-6 max-w-full">
+    <div class="mx-auto my-8 p-4 sm:p-6 w-full max-w-7xl">
         <!-- Login Page -->
         <div id="login-view" class="flex flex-col items-center justify-center min-h-[80vh]">
-            <div class="panel-bg p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20 w-full max-w-md login-container">
-                <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Login</h2>
+            <div class="panel-bg p-4 sm:p-6 rounded-xl shadow-md w-full max-w-md fade-in">
+                <h2 class="font-semibold mb-4 text-[var(--button-primary)] text-xl sm:text-2xl">Login</h2>
                 <div class="space-y-4">
-                    <input id="email" type="email" placeholder="Email" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full text-sm sm:text-base placeholder-[#858585]">
-                    <input id="password" type="password" placeholder="Password" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full text-sm sm:text-base placeholder-[#858585]">
-                    <button id="login-email" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] w-full">Sign In</button>
-                    <button id="login-google" class="bg-[#4285f4] text-[#d4d4d4] rounded-lg hover:bg-[#357ae8] w-full flex items-center justify-center">
+                    <input id="email" type="email" placeholder="Email" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg w-full text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                    <input id="password" type="password" placeholder="Password" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg w-full text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                    <button id="login-email" class="bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] w-full">Sign In</button>
+                    <button id="login-google" class="bg-[var(--button-google)] text-[#ffffff] rounded-lg hover:bg-[var(--button-google-hover)] w-full flex items-center justify-center">
                         <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24">
                             <path fill="currentColor" d="M12.24 10.4V14h2.4c-.1 1.2-.9 2.3-2.4 2.9v2.4h4c2.3-2.2 3.6-5.5 3.6-9 0-.6 0-1.2-.1-1.8H12.24z"/>
                             <path fill="currentColor" d="M12 20c-2.7 0-5-1.8-5.8-4.4H2.8v2.4C4.7 20.9 8.1 23 12 23c2.7 0 5.2-1 7.1-2.7V18h-4v2.4c-1.1.4-2.3.6-3.1.6z"/>
@@ -104,7 +163,7 @@
                         </svg>
                         Sign in with Google
                     </button>
-                    <p id="auth-error" class="text-[#f44747] text-center text-sm sm:text-base"></p>
+                    <p id="auth-error" class="text-[var(--error)] text-center text-sm sm:text-base"></p>
                 </div>
             </div>
         </div>
@@ -112,109 +171,119 @@
         <div id="main-app" class="hidden">
             <!-- Navigation Bar -->
             <nav class="flex justify-center mb-6">
-                <div class="flex secondary-bg rounded-lg p-1 shadow-sm">
-                    <button id="nav-track" class="px-4 py-2 rounded-lg bg-[#3b8bba] text-[#d4d4d4] text-sm sm:text-base transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Track</button>
-                    <button id="nav-diary" class="px-4 py-2 rounded-lg text-[#858585] hover:bg-[#3b8bba] hover:text-[#d4d4d4] text-sm sm:text-base transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Diary</button>
+                <div class="flex secondary-bg rounded-lg p-2 shadow-sm space-x-2">
+                    <button id="nav-track" class="px-6 py-3 rounded-lg nav-active text-sm sm:text-base">Track</button>
+                    <button id="nav-diary" class="px-6 py-3 rounded-lg text-[var(--text-secondary)] hover:bg-[var(--button-primary)] hover:text-[#ffffff] text-sm sm:text-base">Diary</button>
+                    <button id="theme-toggle" class="px-6 py-3 rounded-lg text-[var(--text-secondary)] hover:bg-[var(--button-secondary-hover)]">
+                        <svg id="theme-icon" class="theme-toggle" fill="none" stroke="var(--icon-color)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </button>
                 </div>
             </nav>
             <!-- Greeting -->
-            <p id="greeting" class="text-base sm:text-lg text-center mb-6 text-[#858585]"></p>
+            <p id="greeting" class="text-base sm:text-lg text-center mb-6 text-[var(--text-secondary)] fade-in"></p>
             <!-- Track View -->
             <div id="track-view" class="flex flex-col gap-4">
                 <div class="flex flex-col lg:flex-row gap-4">
                     <!-- To-Do List Section -->
-                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                        <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">To-Do List</h2>
+                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-md">
+                        <h2 class="font-semibold mb-4 text-[var(--button-primary)] text-xl sm:text-2xl">To-Do List</h2>
                         <div class="flex flex-col sm:flex-row gap-2 mb-4">
-                            <input id="new-todo" type="text" placeholder="Add a to-do" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg flex-1 text-sm sm:text-base placeholder-[#858585]">
-                            <button id="add-todo" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Add</button>
+                            <input id="new-todo" type="text" placeholder="Add a to-do" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg flex-1 text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                            <button id="add-todo" class="bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] px-6 py-3">Add</button>
                         </div>
-                        <div id="todo-list" class="space-y-2"></div>
+                        <div id="todo-list" class="space-y-4"></div>
                     </div>
                     <!-- Calendar and Goals Progress Section -->
-                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
+                    <div class="w-full lg:w-1/2 panel-bg p-4 sm:p-6 rounded-xl shadow-md">
                         <div class="flex justify-between items-center mb-4">
-                            <h2 class="font-semibold text-[#3b8bba] text-xl sm:text-2xl">Streak Calendar & Goals</h2>
-                            <button id="go-to-settings" class="bg-[#3c3c3c] text-[#d4d4d4] rounded-lg hover:bg-[#4e4e4e]">
+                            <h2 class="font-semibold text-[var(--button-primary)] text-xl sm:text-2xl">Streak Calendar & Goals</h2>
+                            <button id="go-to-settings" class="bg-[var(--button-secondary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-secondary-hover)] px-6 py-3">
                                 <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37A1.724 1.724 0 0010.325 4.317z"></path>
                                 </svg>
                             </button>
                         </div>
-                        <div id="goal-list" class="mb-6 space-y-2"></div>
+                        <div id="goal-list" class="mb-6 space-y-4"></div>
                         <div id="calendar" class="grid grid-cols-7 gap-2 text-center"></div>
                     </div>
                 </div>
                 <!-- Checklist Section -->
-                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                    <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Today's Checklist</h2>
+                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-md">
+                    <h2 class="font-semibold mb-4 text-[var(--button-primary)] text-xl sm:text-2xl">Today's Checklist</h2>
                     <div id="checklist" class="space-y-4"></div>
-                    <button id="submit" class="mt-4 bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] w-full sm:w-auto transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Submit</button>
-                    <p id="score" class="mt-4 text-base sm:text-lg text-[#858585]"></p>
+                    <button id="submit" class="mt-4 bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] w-full sm:w-auto px-6 py-3">Submit</button>
+                    <p id="score" class="mt-4 text-base sm:text-lg text-[var(--text-secondary)]"></p>
                 </div>
             </div>
             <!-- Diary View -->
             <div id="diary-view" class="hidden flex flex-col gap-4">
-                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                    <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Diary</h2>
-                    <button id="new-diary" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] mb-4 flex items-center w-full sm:w-auto transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">
+                <div class="w-full panel-bg p-4 sm:p-6 rounded-xl shadow-md">
+                    <h2 class="font-semibold mb-4 text-[var(--button-primary)] text-xl sm:text-2xl">Diary</h2>
+                    <button id="new-diary" class="bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] mb-4 flex items-center w-full sm:w-auto px-6 py-3">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                         </svg>
                         New Diary Entry
                     </button>
                     <div id="diary-form" class="hidden mb-4">
-                        <textarea id="diary-content" class="w-full bg-[#2d2d2d] text-[#d4d4d4] p-3 rounded-lg diary-font text-lg sm:text-xl placeholder-[#858585]" rows="5" placeholder="Write your thoughts for today..."></textarea>
+                        <textarea id="diary-content" class="w-full bg-[var(--secondary-bg)] text-[var(--diary-text)] p-4 rounded-lg diary-font text-lg sm:text-xl placeholder-[var(--text-secondary)]" rows="5" placeholder="Write your thoughts for today..."></textarea>
                         <div class="flex gap-2 mt-2">
-                            <button id="save-diary" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Save</button>
-                            <button id="cancel-diary" class="bg-[#3c3c3c] text-[#d4d4d4] rounded-lg hover:bg-[#4e4e4e] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Cancel</button>
+                            <button id="save-diary" class="bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] px-6 py-3">Save</button>
+                            <button id="cancel-diary" class="bg-[var(--button-secondary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-secondary-hover)] px-6 py-3">Cancel</button>
                         </div>
                     </div>
-                    <div id="diary-list" class="space-y-2"></div>
+                    <div id="diary-list" class="space-y-4"></div>
                 </div>
             </div>
             <!-- Settings View -->
-            <div id="settings-view" class="hidden flex-col gap-4 panel-bg p-4 sm:p-6 rounded-xl shadow-lg shadow-[#3b8bba]/20">
-                <h2 class="font-semibold mb-4 text-[#3b8bba] text-xl sm:text-2xl">Settings</h2>
+            <div id="settings-view" class="hidden flex flex-col gap-4 panel-bg p-4 sm:p-6 rounded-xl shadow-md">
+                <h2 class="font-semibold mb-4 text-[var(--button-primary)] text-xl sm:text-2xl">Settings</h2>
                 <!-- User Settings -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-medium mb-2 text-[#858585]">User Settings</h3>
-                    <input id="user-name" type="text" placeholder="Enter your name" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full sm:w-1/2 text-sm sm:text-base placeholder-[#858585]">
-                    <button id="save-name" class="mt-2 bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Save Name</button>
-                    <button id="logout" class="mt-2 bg-[#f44747] text-[#d4d4d4] rounded-lg hover:bg-[#cc3c3c] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Logout</button>
+                    <h3 class="text-lg font-medium mb-2 text-[var(--text-secondary)]">User Settings</h3>
+                    <input id="user-name" type="text" placeholder="Enter your name" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg w-full sm:w-1/2 text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                    <button id="save-name" class="mt-2 bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] px-6 py-3">Save Name</button>
+                    <button id="logout" class="mt-2 bg-[var(--error)] text-[#ffffff] rounded-lg hover:bg-[var(--error-hover)] px-6 py-3">Logout</button>
+                    <button id="theme-toggle-settings" class="mt-2 bg-[var(--button-secondary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-secondary-hover)] px-6 py-3">
+                        <svg id="theme-icon-settings" class="theme-toggle" fill="none" stroke="var(--icon-color)" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                        </svg>
+                    </button>
                 </div>
                 <!-- Task Management -->
                 <div class="mb-6">
-                    <h3 class="text-lg font-medium mb-2 text-[#858585]">Manage Tasks</h3>
+                    <h3 class="text-lg font-medium mb-2 text-[var(--text-secondary)]">Manage Tasks</h3>
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <input id="new-task" type="text" placeholder="New task name" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg flex-1 text-sm sm:text-base placeholder-[#858585]">
-                        <input id="task-points" type="number" min="1" placeholder="Points" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full sm:w-24 text-sm sm:text-base placeholder-[#858585]">
-                        <button id="add-task" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Add Task</button>
+                        <input id="new-task" type="text" placeholder="New task name" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg flex-1 text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                        <input id="task-points" type="number" min="1" placeholder="Points" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg w-full sm:w-24 text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                        <button id="add-task" class="bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] px-6 py-3">Add Task</button>
                     </div>
-                    <div id="task-list" class="mt-4 space-y-2"></div>
+                    <div id="task-list" class="mt-4 space-y-4"></div>
                 </div>
                 <!-- Goal Settings -->
                 <div>
-                    <h3 class="text-lg font-medium mb-2 text-[#858585]">Manage Goals</h3>
+                    <h3 class="text-lg font-medium mb-2 text-[var(--text-secondary)]">Manage Goals</h3>
                     <div class="flex flex-col sm:flex-row gap-2">
-                        <select id="goal-task" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg text-sm sm:text-base">
+                        <select id="goal-task" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg text-sm sm:text-base">
                             <!-- Populated dynamically -->
                         </select>
-                        <input id="goal-duration" type="number" min="1" placeholder="Months" class="bg-[#2d2d2d] text-[#d4d4d4] p-2 rounded-lg w-full sm:w-24 text-sm sm:text-base placeholder-[#858585]">
-                        <button id="set-goal" class="bg-[#3b8bba] text-[#d4d4d4] rounded-lg hover:bg-[#2a6a99] transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Set Goal</button>
+                        <input id="goal-duration" type="number" min="1" placeholder="Months" class="bg-[var(--secondary-bg)] text-[var(--text-primary)] p-4 rounded-lg w-full sm:w-24 text-sm sm:text-base placeholder-[var(--text-secondary)]">
+                        <button id="set-goal" class="bg-[var(--button-primary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-primary-hover)] px-6 py-3">Set Goal</button>
                     </div>
-                    <div id="settings-goal-list" class="mt-4 space-y-2"></div>
+                    <div id="settings-goal-list" class="mt-4 space-y-4"></div>
                 </div>
-                <button id="back-to-main" class="mt-4 bg-[#3c3c3c] text-[#d4d4d4] rounded-lg hover:bg-[#4e4e4e] w-full sm:w-auto transition-all duration-200 transform hover:scale-105 min-w-[44px] px-4 py-2">Back to Main</button>
+                <button id="back-to-main" class="mt-4 bg-[var(--button-secondary)] text-[#ffffff] rounded-lg hover:bg-[var(--button-secondary-hover)] w-full sm:w-auto px-6 py-3">Back to Main</button>
             </div>
         </div>
     </div>
 
     <script type="module">
         // Firebase Imports
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
-        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
-        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc } from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-firestore.js';
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js';
+        import { getFirestore, doc, setDoc, getDoc, collection, getDocs, deleteDoc } from 'https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js';
 
         // Firebase Configuration
         const firebaseConfig = {
@@ -236,35 +305,108 @@
         const loginView = document.getElementById('login-view');
         const mainApp = document.getElementById('main-app');
         const authError = document.getElementById('auth-error');
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeToggleSettings = document.getElementById('theme-toggle-settings');
+        const themeIconSettings = document.getElementById('theme-icon-settings');
+
+        // Theme Toggle
+        function updateThemeIcon(isDark) {
+            const lightPath = "M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z";
+            const darkPath = "M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z";
+            document.documentElement.style.setProperty('--icon-color', isDark ? '#d1d5db' : '#f59e0b');
+            themeIcon.querySelector('path').setAttribute('d', isDark ? darkPath : lightPath);
+            themeIconSettings.querySelector('path').setAttribute('d', isDark ? darkPath : lightPath);
+        }
+
+        async function toggleTheme() {
+            const isDark = document.documentElement.classList.contains('dark-theme');
+            document.documentElement.classList.toggle('dark-theme');
+            document.documentElement.classList.toggle('light-theme');
+            const newTheme = isDark ? 'light' : 'dark';
+            updateThemeIcon(!isDark);
+            if (auth.currentUser) {
+                try {
+                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'profile', 'info'), { theme: newTheme }, { merge: true });
+                    console.log(`Theme saved: ${newTheme}`);
+                } catch (error) {
+                    console.error('Error saving theme:', error);
+                    alert('Failed to save theme preference. Please try again.');
+                }
+            }
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleSettings.addEventListener('click', toggleTheme);
 
         // Authentication Handlers
         document.getElementById('login-email').addEventListener('click', async () => {
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value.trim();
+            if (!email || !password) {
+                authError.textContent = 'Please enter both email and password.';
+                return;
+            }
             try {
+                console.log('Attempting email/password login for:', email);
                 await signInWithEmailAndPassword(auth, email, password);
                 authError.textContent = '';
+                console.log('Email/password login successful');
             } catch (error) {
-                authError.textContent = error.message;
+                console.error('Email/password login error:', error.code, error.message);
+                switch (error.code) {
+                    case 'auth/user-not-found':
+                        authError.textContent = 'No user found with this email.';
+                        break;
+                    case 'auth/wrong-password':
+                        authError.textContent = 'Incorrect password. Please try again.';
+                        break;
+                    case 'auth/invalid-email':
+                        authError.textContent = 'Invalid email format.';
+                        break;
+                    case 'auth/too-many-requests':
+                        authError.textContent = 'Too many attempts. Please try again later.';
+                        break;
+                    default:
+                        authError.textContent = `Login failed: ${error.message}`;
+                }
             }
         });
 
         document.getElementById('login-google').addEventListener('click', async () => {
             const provider = new GoogleAuthProvider();
             try {
+                console.log('Attempting Google Sign-in');
                 await signInWithPopup(auth, provider);
                 authError.textContent = '';
+                console.log('Google Sign-in successful');
             } catch (error) {
-                authError.textContent = error.message;
+                console.error('Google Sign-in error:', error.code, error.message);
+                switch (error.code) {
+                    case 'auth/popup-closed-by-user':
+                        authError.textContent = 'Google Sign-in cancelled.';
+                        break;
+                    case 'auth/popup-blocked':
+                        authError.textContent = 'Popup blocked by browser. Please allow popups.';
+                        break;
+                    case 'auth/unauthorized-domain':
+                        authError.textContent = 'Unauthorized domain. Check Firebase Auth settings.';
+                        break;
+                    default:
+                        authError.textContent = `Google Sign-in failed: ${error.message}`;
+                }
             }
         });
 
         document.getElementById('logout').addEventListener('click', async () => {
             try {
+                console.log('Attempting logout');
                 await signOut(auth);
                 authError.textContent = '';
+                console.log('Logout successful');
             } catch (error) {
-                authError.textContent = error.message;
+                console.error('Logout error:', error);
+                authError.textContent = `Logout failed: ${error.message}`;
             }
         });
 
@@ -303,16 +445,16 @@
             trackView.classList.remove('hidden');
             diaryView.classList.add('hidden');
             settingsView.classList.add('hidden');
-            navTrack.classList.add("bg-[#3b8bba] text-[#d4d4d4]");
-            navDiary.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.add('nav-active');
+            navDiary.classList.remove('nav-active');
         }
 
         function showDiaryView() {
             trackView.classList.add('hidden');
             diaryView.classList.remove('hidden');
             settingsView.classList.add('hidden');
-            navTrack.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
-            navDiary.classList.add('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.remove('nav-active');
+            navDiary.classList.add('nav-active');
             renderDiaryList();
         }
 
@@ -322,8 +464,8 @@
             trackView.classList.add('hidden');
             diaryView.classList.add('hidden');
             settingsView.classList.remove('hidden');
-            navTrack.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
-            navDiary.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
+            navTrack.classList.remove('nav-active');
+            navDiary.classList.remove('nav-active');
             renderTaskList();
             renderGoalSettings();
         });
@@ -333,51 +475,67 @@
         document.getElementById('save-name').addEventListener('click', async () => {
             userName = document.getElementById('user-name').value.trim();
             if (auth.currentUser) {
-                await setDoc(doc(db, 'users', auth.currentUser.uid, 'profile', 'info'), { userName });
-                displayGreeting();
+                try {
+                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'profile', 'info'), { userName }, { merge: true });
+                    displayGreeting();
+                } catch (error) {
+                    console.error('Error saving user name:', error);
+                    alert('Failed to save name. Please try again.');
+                }
             }
         });
 
         // Load user data from Firestore
         async function loadUserData(user) {
-            const userDoc = await getDoc(doc(db, 'users', user.uid, 'profile', 'info'));
-            if (userDoc.exists()) {
-                userName = userDoc.data().userName || '';
+            try {
+                console.log('Loading user data for UID:', user.uid);
+                const userDoc = await getDoc(doc(db, 'users', user.uid, 'profile', 'info'));
+                if (userDoc.exists()) {
+                    userName = userDoc.data().userName || '';
+                    const theme = userDoc.data().theme || 'light';
+                    document.documentElement.classList.remove('light-theme', 'dark-theme');
+                    document.documentElement.classList.add(`${theme}-theme`);
+                    updateThemeIcon(theme === 'dark');
+                }
+                const tasksSnapshot = await getDocs(collection(db, 'users', user.uid, 'tasks'));
+                tasks = {};
+                tasksSnapshot.forEach(doc => {
+                    tasks[doc.id] = doc.data().points;
+                });
+                const todosSnapshot = await getDocs(collection(db, 'users', user.uid, 'todos'));
+                todos = [];
+                todosSnapshot.forEach(doc => {
+                    todos.push({ id: doc.id, ...doc.data() });
+                });
+                const goalsSnapshot = await getDocs(collection(db, 'users', user.uid, 'goals'));
+                goals = [];
+                goalsSnapshot.forEach(doc => {
+                    goals.push({ id: doc.id, ...doc.data() });
+                });
+                const diarySnapshot = await getDocs(collection(db, 'users', user.uid, 'diary'));
+                diaryEntries = [];
+                diarySnapshot.forEach(doc => {
+                    diaryEntries.push({ id: doc.id, ...doc.data() });
+                });
+                const trackingSnapshot = await getDocs(collection(db, 'users', user.uid, 'tracking'));
+                trackingData = {};
+                trackingSnapshot.forEach(doc => {
+                    trackingData[doc.id] = doc.data();
+                });
+                displayGreeting();
+                loadChecklist();
+                renderTodos();
+                renderGoals();
+                renderTaskList();
+                renderGoalTaskOptions();
+                renderGoalSettings();
+                renderCalendar();
+                renderDiaryList();
+                console.log('User data loaded successfully');
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                alert('Failed to load user data. Please try again.');
             }
-            const tasksSnapshot = await getDocs(collection(db, 'users', user.uid, 'tasks'));
-            tasks = {};
-            tasksSnapshot.forEach(doc => {
-                tasks[doc.id] = doc.data().points;
-            });
-            const todosSnapshot = await getDocs(collection(db, 'users', user.uid, 'todos'));
-            todos = [];
-            todosSnapshot.forEach(doc => {
-                todos.push({ id: doc.id, ...doc.data() });
-            });
-            const goalsSnapshot = await getDocs(collection(db, 'users', user.uid, 'goals'));
-            goals = [];
-            goalsSnapshot.forEach(doc => {
-                goals.push({ id: doc.id, ...doc.data() });
-            });
-            const diarySnapshot = await getDocs(collection(db, 'users', user.uid, 'diary'));
-            diaryEntries = [];
-            diarySnapshot.forEach(doc => {
-                diaryEntries.push({ id: doc.id, ...doc.data() });
-            });
-            const trackingSnapshot = await getDocs(collection(db, 'users', user.uid, 'tracking'));
-            trackingData = {};
-            trackingSnapshot.forEach(doc => {
-                trackingData[doc.id] = doc.data();
-            });
-            displayGreeting();
-            loadChecklist();
-            renderTodos();
-            renderGoals();
-            renderTaskList();
-            renderGoalTaskOptions();
-            renderGoalSettings();
-            renderCalendar();
-            renderDiaryList();
         }
 
         // Load checklist
@@ -424,8 +582,13 @@
             });
             data.score = updateScore();
             trackingData[today] = data;
-            await setDoc(doc(db, 'users', auth.currentUser.uid, 'tracking', today), data);
-            renderCalendar();
+            try {
+                await setDoc(doc(db, 'users', auth.currentUser.uid, 'tracking', today), data);
+                renderCalendar();
+            } catch (error) {
+                console.error('Error saving checklist:', error);
+                alert('Failed to save checklist. Please try again.');
+            }
         });
 
         // Manage tasks
@@ -434,12 +597,17 @@
             const points = parseInt(document.getElementById('task-points').value);
             if (taskName && points > 0 && !tasks[taskName] && auth.currentUser) {
                 tasks[taskName] = points;
-                await setDoc(doc(db, 'users', auth.currentUser.uid, 'tasks', taskName), { points });
-                document.getElementById('new-task').value = '';
-                document.getElementById('task-points').value = '';
-                loadChecklist();
-                renderTaskList();
-                renderGoalTaskOptions();
+                try {
+                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'tasks', taskName), { points });
+                    document.getElementById('new-task').value = '';
+                    document.getElementById('task-points').value = '';
+                    loadChecklist();
+                    renderTaskList();
+                    renderGoalTaskOptions();
+                } catch (error) {
+                    console.error('Error adding task:', error);
+                    alert('Failed to add task. Please try again.');
+                }
             } else {
                 alert('Please enter a valid task name and points.');
             }
@@ -451,33 +619,38 @@
             taskList.innerHTML = '';
             Object.keys(tasks).forEach(task => {
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg flex justify-between text-sm sm:text-base';
+                div.className = 'bg-[var(--secondary-bg)] p-3 rounded-lg flex justify-between text-sm sm:text-base';
                 div.innerHTML = `
                     <span>${task.charAt(0).toUpperCase() + task.slice(1)} (${tasks[task]} points)</span>
-                    <button onclick="deleteTask('${task}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <button onclick="window.deleteTask('${task}')" class="text-[var(--error)] hover:text-[var(--error-hover)]">Delete</button>
                 `;
                 taskList.appendChild(div);
             });
         }
 
         // Delete task
-        async function deleteTask(task) {
+        window.deleteTask = async function(task) {
             if (!auth.currentUser) return;
-            delete tasks[task];
-            await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'tasks', task));
-            loadChecklist();
-            renderTaskList();
-            renderGoalTaskOptions();
-            goals = goals.filter(goal => goal.task !== task);
-            const goalDocs = await getDocs(collection(db, 'users', auth.currentUser.uid, 'goals'));
-            goalDocs.forEach(async doc => {
-                if (doc.data().task === task) {
-                    await deleteDoc(doc.ref);
+            try {
+                delete tasks[task];
+                await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'tasks', task));
+                loadChecklist();
+                renderTaskList();
+                renderGoalTaskOptions();
+                goals = goals.filter(goal => goal.task !== task);
+                const goalDocs = await getDocs(collection(db, 'users', auth.currentUser.uid, 'goals'));
+                for (const doc of goalDocs.docs) {
+                    if (doc.data().task === task) {
+                        await deleteDoc(doc.ref);
+                    }
                 }
-            });
-            renderGoals();
-            renderGoalSettings();
-            renderCalendar();
+                renderGoals();
+                renderGoalSettings();
+                renderCalendar();
+            } catch (error) {
+                console.error('Error deleting task:', error);
+                alert('Failed to delete task. Please try again.');
+            }
         }
 
         // Render goal task options
@@ -513,15 +686,20 @@
             };
             const id = `${task}_${startDate.toISOString()}`;
             goals.push({ id, ...goal });
-            await setDoc(doc(db, 'users', auth.currentUser.uid, 'goals', id), goal);
-            document.getElementById('goal-duration').value = '';
-            renderGoals();
-            renderGoalSettings();
-            renderCalendar();
-            settingsView.classList.add('hidden');
-            trackView.classList.remove('hidden');
-            navTrack.classList.add('bg-[#3b8bba] text-[#d4d4d4]');
-            navDiary.classList.remove('bg-[#3b8bba] text-[#d4d4d4]');
+            try {
+                await setDoc(doc(db, 'users', auth.currentUser.uid, 'goals', id), goal);
+                document.getElementById('goal-duration').value = '';
+                renderGoals();
+                renderGoalSettings();
+                renderCalendar();
+                settingsView.classList.add('hidden');
+                trackView.classList.remove('hidden');
+                navTrack.classList.add('nav-active');
+                navDiary.classList.remove('nav-active');
+            } catch (error) {
+                console.error('Error setting goal:', error);
+                alert('Failed to set goal. Please try again.');
+            }
         });
 
         // Render goals in main view
@@ -536,13 +714,13 @@
                 const totalDays = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
                 const progress = Math.min((elapsedDays / totalDays) * 100, 100);
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg';
+                div.className = 'bg-[var(--secondary-bg)] p-3 rounded-lg';
                 div.innerHTML = `
                     <div class="flex justify-between text-sm sm:text-base">
                         <span>${goal.task.toUpperCase()} Goal (${goal.duration} months)</span>
                     </div>
-                    <div class="mt-1 text-sm sm:text-base text-[#858585]">Elapsed: ${elapsedDays}/${totalDays} days</div>
-                    <div class="w-full bg-[#3c3c3c] rounded-full h-2 mt-1">
+                    <div class="mt-1 text-sm sm:text-base text-[var(--text-secondary)]">Elapsed: ${elapsedDays}/${totalDays} days</div>
+                    <div class="w-full bg-[var(--progress-bg)] rounded-full h-2 mt-1">
                         <div class="goal-progress h-2 rounded-full" style="width: ${progress}%"></div>
                     </div>
                 `;
@@ -554,30 +732,35 @@
         function renderGoalSettings() {
             const settingsGoalList = document.getElementById('settings-goal-list');
             settingsGoalList.innerHTML = '';
-            goals.forEach((goal, index) => {
+            goals.forEach((goal) => {
                 const start = new Date(goal.startDate);
                 const end = new Date(goal.endDate);
                 const now = new Date();
                 const elapsedDays = Math.floor((now - start) / (1000 * 60 * 60 * 24)) + 1;
                 const totalDays = Math.floor((end - start) / (1000 * 60 * 60 * 24)) + 1;
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg flex justify-between text-sm sm:text-base';
+                div.className = 'bg-[var(--secondary-bg)] p-3 rounded-lg flex justify-between text-sm sm:text-base';
                 div.innerHTML = `
                     <span>${goal.task.toUpperCase()} Goal (${goal.duration} months, ${elapsedDays}/${totalDays} days)</span>
-                    <button onclick="deleteGoal('${goal.id}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <button onclick="window.deleteGoal('${goal.id}')" class="text-[var(--error)] hover:text-[var(--error-hover)]">Delete</button>
                 `;
                 settingsGoalList.appendChild(div);
             });
         }
 
         // Delete goal
-        async function deleteGoal(id) {
+        window.deleteGoal = async function(id) {
             if (!auth.currentUser) return;
-            goals = goals.filter(goal => goal.id !== id);
-            await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'goals', id));
-            renderGoals();
-            renderGoalSettings();
-            renderCalendar();
+            try {
+                goals = goals.filter(goal => goal.id !== id);
+                await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'goals', id));
+                renderGoals();
+                renderGoalSettings();
+                renderCalendar();
+            } catch (error) {
+                console.error('Error deleting goal:', error);
+                alert('Failed to delete goal. Please try again.');
+            }
         }
 
         // Manage to-dos
@@ -586,10 +769,15 @@
             if (todoText && auth.currentUser) {
                 const todo = { text: todoText, completed: false };
                 const id = `${Date.now()}`;
-                await setDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id), todo);
-                todos.push({ id, ...todo });
-                document.getElementById('new-todo').value = '';
-                renderTodos();
+                try {
+                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id), todo);
+                    todos.push({ id, ...todo });
+                    document.getElementById('new-todo').value = '';
+                    renderTodos();
+                } catch (error) {
+                    console.error('Error adding to-do:', error);
+                    alert('Failed to add to-do. Please try again.');
+                }
             } else {
                 alert('Please enter a to-do item.');
             }
@@ -601,36 +789,45 @@
             todoList.innerHTML = '';
             todos.forEach(todo => {
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-2 rounded-lg flex items-center justify-between text-sm sm:text-base';
+                div.className = 'bg-[var(--secondary-bg)] p-3 rounded-lg flex items-center justify-between text-sm sm:text-base';
                 div.innerHTML = `
                     <label class="flex items-center flex-1">
-                        <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo('${todo.id}')" class="mr-3">
+                        <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="window.toggleTodo('${todo.id}')" class="mr-3">
                         <span class="${todo.completed ? 'todo-completed' : ''}">${todo.text}</span>
                     </label>
-                    <button onclick="deleteMyTodo('${todo.id}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <button onclick="window.deleteTodo('${todo.id}')" class="text-[var(--error)] hover:text-[var(--error-hover)]">Delete</button>
                 `;
                 todoList.appendChild(div);
             });
         }
 
         // Toggle to-do completion
-        async function toggleTodo(id) {
+        window.toggleTodo = async function(id) {
             if (!auth.currentUser) return;
             const todo = todos.find(t => t.id === id);
             if (todo) {
-                todo.completed = !todo.completed;
-                await setDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id), todo);
-                renderTodos();
+                try {
+                    todo.completed = !todo.completed;
+                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id), todo);
+                    renderTodos();
+                } catch (error) {
+                    console.error('Error toggling to-do:', error);
+                    alert('Failed to toggle to-do. Please try again.');
+                }
             }
         }
 
         // Delete to-do
-        async function deleteMyTodo(id) {
-            console.log('Deleting todo with id:', id);
+        window.deleteTodo = async function(id) {
             if (!auth.currentUser) return;
-            todos = todos.filter(todo => todo.id !== id);
-            await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id));
-            renderTodos();
+            try {
+                todos = todos.filter(todo => todo.id !== id);
+                await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'todos', id));
+                renderTodos();
+            } catch (error) {
+                console.error('Error deleting to-do:', error);
+                alert('Failed to delete to-do. Please try again.');
+            }
         }
 
         // Manage diary entries
@@ -648,17 +845,22 @@
             const content = diaryContent.value.trim();
             if (content) {
                 const existingEntry = diaryEntries.find(entry => entry.date === today);
-                if (existingEntry) {
-                    existingEntry.content = content;
-                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'diary', existingEntry.id), { date: today, content });
-                } else {
-                    const id = `${today}_${Date.now()}`;
-                    diaryEntries.push({ id, date: today, content });
-                    await setDoc(doc(db, 'users', auth.currentUser.uid, 'diary', id), { date: today, content });
+                try {
+                    if (existingEntry) {
+                        existingEntry.content = content;
+                        await setDoc(doc(db, 'users', auth.currentUser.uid, 'diary', existingEntry.id), { date: today, content });
+                    } else {
+                        const id = `${today}_${Date.now()}`;
+                        diaryEntries.push({ id, date: today, content });
+                        await setDoc(doc(db, 'users', auth.currentUser.uid, 'diary', id), { date: today, content });
+                    }
+                    diaryForm.classList.add('hidden');
+                    diaryContent.value = '';
+                    renderDiaryList();
+                } catch (error) {
+                    console.error('Error saving diary entry:', error);
+                    alert('Failed to save diary entry. Please try again.');
                 }
-                diaryForm.classList.add('hidden');
-                diaryContent.value = '';
-                renderDiaryList();
             } else {
                 alert('Please write something in the diary.');
             }
@@ -674,31 +876,36 @@
             diaryList.innerHTML = '';
             diaryEntries.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(entry => {
                 const div = document.createElement('div');
-                div.className = 'bg-[#2d2d2d] p-3 rounded-lg';
+                div.className = 'bg-[var(--secondary-bg)] p-3 rounded-lg';
                 const preview = entry.content.split(' ').slice(0, 10).join(' ') + (entry.content.split(' ').length > 10 ? '...' : '');
                 div.innerHTML = `
-                    <div class="flex justify-between items-center cursor-pointer text-sm sm:text-base" onclick="showDiaryEntry('${entry.id}')">
-                        <span class="diary-font text-lg sm:text-xl text-[#d4d4d4]">${entry.date}: ${preview}</span>
-                        <button onclick="event.stopPropagation(); deleteDiaryEntry('${entry.id}')" class="text-[#f44747] hover:text-[#cc3c3c]">Delete</button>
+                    <div class="flex justify-between items-center cursor-pointer text-sm sm:text-base" onclick="window.showDiaryEntry('${entry.id}')">
+                        <span class="diary-font text-lg sm:text-xl text-[var(--diary-text)]">${entry.date}: ${preview}</span>
+                        <button onclick="event.stopPropagation(); window.deleteDiaryEntry('${entry.id}')" class="text-[var(--error)] hover:text-[var(--error-hover)]">Delete</button>
                     </div>
-                    <div id="diary-content-${entry.id}" class="hidden diary-font text-lg sm:text-xl mt-2 p-2 bg-[#252526] rounded-lg text-[#d4d4d4]">${entry.content}</div>
+                    <div id="diary-content-${entry.id}" class="hidden diary-font text-lg sm:text-xl mt-2 p-3 bg-[var(--secondary-bg)] rounded-lg text-[var(--diary-text)]">${entry.content}</div>
                 `;
                 diaryList.appendChild(div);
             });
         }
 
         // Show full diary entry
-        function showDiaryEntry(id) {
+        window.showDiaryEntry = function(id) {
             const contentDiv = document.getElementById(`diary-content-${id}`);
             contentDiv.classList.toggle('hidden');
         }
 
         // Delete diary entry
-        async function deleteDiaryEntry(id) {
+        window.deleteDiaryEntry = async function(id) {
             if (!auth.currentUser) return;
-            diaryEntries = diaryEntries.filter(entry => entry.id !== id);
-            await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'diary', id));
-            renderDiaryList();
+            try {
+                diaryEntries = diaryEntries.filter(entry => entry.id !== id);
+                await deleteDoc(doc(db, 'users', auth.currentUser.uid, 'diary', id));
+                renderDiaryList();
+            } catch (error) {
+                console.error('Error deleting diary entry:', error);
+                alert('Failed to delete diary entry. Please try again.');
+            }
         }
 
         // Render calendar
@@ -716,7 +923,7 @@
             days.forEach(day => {
                 const div = document.createElement('div');
                 div.textContent = day;
-                div.className = ' w-10 font-bold text-[#3b8bba] text-sm sm:text-base flex items-center justify-center';
+                div.className = 'font-bold text-[var(--button-primary)] text-sm sm:text-base';
                 calendar.appendChild(div);
             });
 
@@ -731,7 +938,7 @@
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
                 const div = document.createElement('div');
                 const bgClass = day % 3 === 0 ? 'calendar-day-bg-1' : day % 3 === 1 ? 'calendar-day-bg-2' : 'calendar-day-bg-3';
-                div.className = `h-10 w-10 flex items-center justify-center rounded-full transition-all duration-200; ${bgClass}`;
+                div.className = `calendar-day ${bgClass}`;
                 
                 let content = day;
                 let tooltip = '';
@@ -742,7 +949,7 @@
                     tooltip += `Score: ${score}`;
                 } else if (dateStr < today && (!trackingData[dateStr] || trackingData[dateStr].score === 0)) {
                     content = '❌';
-                    div.className += ' text-[#f44747]';
+                    div.className += ' text-[var(--error)]';
                 }
 
                 const activeGoals = goals.filter(goal => {
@@ -765,11 +972,21 @@
         // Authentication state listener
         onAuthStateChanged(auth, async (user) => {
             if (user) {
+                console.log('User authenticated:', user.uid);
                 loginView.classList.add('hidden');
                 mainApp.classList.remove('hidden');
-                await loadUserData(user);
-                showTrackView();
+                try {
+                    await loadUserData(user);
+                    showTrackView();
+                } catch (error) {
+                    console.error('Error during post-login data load:', error);
+                    authError.textContent = 'Failed to load user data. Please try again.';
+                }
             } else {
+                console.log('No user authenticated');
+                document.documentElement.classList.remove('dark-theme');
+                document.documentElement.classList.add('light-theme');
+                updateThemeIcon(false);
                 loginView.classList.remove('hidden');
                 mainApp.classList.add('hidden');
             }
